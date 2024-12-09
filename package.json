@@ -1,0 +1,19 @@
+{
+  "name": "forkify",
+  "version": "1.0.0",
+  "description": "Recipe App",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel home.html",
+    "build": "parcel build home.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hariharen",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.3"
+  },
+  "devDependencies": {
+    "parcel": "^2.13.2"
+  }
+}
