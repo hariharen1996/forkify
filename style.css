@@ -22,3 +22,11 @@ i{
     text-decoration: underline; 
     font-weight: bold;
 }
+
+.message i{
+    font-size: 1.5rem;
+}
+
+.message p{
+    font-size: 1.3rem;
+}
