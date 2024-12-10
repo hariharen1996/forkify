@@ -1,5 +1,7 @@
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 
 let recipeEl = document.querySelector('.recipe')
 
