@@ -13,6 +13,7 @@
   "dependencies": {
     "bootstrap": "^5.3.3",
     "core-js": "^3.39.0",
+    "fractional": "^1.0.0",
     "regenerator-runtime": "^0.14.1"
   },
   "devDependencies": {

@@ -1,3 +1,6 @@
+import { Fraction } from "fractional"
+
+
 class RecipeView{
     _parentElement = document.querySelector('.recipe')
     _data
@@ -5,7 +8,7 @@ class RecipeView{
 
     render(data){
         this._data = data
-        let dom = this.generateDOM()
+        let dom = this._generateDOM()
         this._clear()
         this._parentElement.insertAdjacentHTML('afterbegin',dom)
     }
@@ -24,7 +27,7 @@ class RecipeView{
     `
     }
 
-    generateDOM(){
+    _generateDOM(){
         return `<img src=${this._data.imageURL} class="recipe-img card-img-top img-fluid w-100 recipe-img" alt="image">
         <div class="card-body">
           <h5 class="card-title recipe-title">${this._data.title}</h5>
@@ -52,18 +55,18 @@ class RecipeView{
           <div class="recipe-container" id="recipeIngredients">
              <h5 class="mt-3">Recipe Ingredients</h5>
              <div class="mt-3">
-                 ${this._data.ingredients.map((item) => {
-                      return(
-                          `<div>
-                              <p>Quanityt: ${item.quantity}</p>
-                              <p>Unit: ${item.unit}</p>
-                              <p>Description: ${item.description}</p>
-                           </div>`
-                      )
-                 })}  
+                 ${this._data.ingredients.map(this._generateDOMIngredients).join('')}
              </div>
           </div>
         </div>`
+    }
+
+    _generateDOMIngredients(item){
+        return `<div>
+                    <p>Quanity: ${item.quantity ? new Fraction(item.quantity).toString() : ""}</p>
+                    <p>Unit: ${item.unit}</p>
+                    <p>Description: ${item.description}</p>
+                </div>`
     }
 
 }
