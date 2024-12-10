@@ -1,66 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forkify - Recipe App</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forkify - Recipe App</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body class="bg-light">
-      <!-- navbar -->
-      <nav class="navbar navbar-expand-lg navbar-light bg-white text-dark">
-        <div class="container-fluid">
-    
-          <a class="navbar-brand" href="home.html">
-            <img src="./img/logo.png" class="logo" alt="forkify-logo" />
-          </a>
-    
-     
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-    
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                 <i class="far fa-bookmark"></i> <span class="m-1 text-dark">Bookmarks</span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white text-dark">
+    <div class="container-fluid">
+
+      <a class="navbar-brand" href="home.html">
+        <img src="./img/logo.png" class="logo" alt="forkify-logo" />
+      </a>
+
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="far fa-bookmark"></i> <span class="m-1 text-dark">Bookmarks</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <hr class="dropdown-divider">
               </li>
-              <li class="nav-item">
-                <a class="nav-link active" href="#">
-                  <i class="fas fa-hamburger"></i> <span class="m-1 text-dark">Add Recipe</span>
-                </a>
-              </li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
-          </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="#">
+              <i class="fas fa-hamburger"></i> <span class="m-1 text-dark">Add Recipe</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- searchbar -->
+  <main class="mt-5">
+    <section class="container search-container">
+      <form class="search-form">
+        <input type="text" placeholder="Search over 1,000,000 recipes..." class="form-control" />
+      </form>
+    </section>
+
+    <!-- Recipe container -->
+    <section class="container reciper-search-container">
+      <div class="message mt-5 d-flex flex-column justify-content-center align-items-center">
+        <i class="far fa-smile"></i>
+        <p>Search your favorite recipe :)</p>
+      </div>
+
+      <!-- search recipe data -->
+      <div class="row">
+        <div class="col-12">
+          <ul class="search-recipe list-group">
+            <li class="mb-3 list-group-item d-flex align-items-center">
+              <a href="#" class="d-flex w-100 align-items-center">
+                <!-- Image Section on the Left -->
+                <div class="image-container me-3">
+                  <img src="./img/favicon.png" class="rounded-circle" alt="">
+                </div>
+
+                <!-- Text Section on the Right -->
+                <div class="d-flex flex-column">
+                  <h5 class="mb-1">title</h5>
+                  <p class="mb-0">publisher</p>
+                </div>
+              </a>
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <a href="#" class="d-flex w-100 align-items-center">
+                <!-- Image Section on the Left -->
+                <div class="image-container me-3">
+                  <img src="./img/favicon.png" class="rounded-circle" alt="">
+                </div>
+
+                <!-- Text Section on the Right -->
+                <div class="d-flex flex-column">
+                  <h5 class="mb-1">title</h5>
+                  <p class="mb-0">publisher</p>
+                </div>
+              </a>
+            </li>
+          </ul>
         </div>
-      </nav>
+        <div class="col-12 recipe mt-5">
 
-    <main class="mt-5">
-      <section class="container search-container">
-          <form class="search-form">
-              <input type="text" placeholder="Search over 1,000,000 recipes..." class="form-control" />
-          </form>
-      </section>
-
-      <section class="container reciper-search-container">
-        <div class="message mt-5 d-flex flex-column justify-content-center align-items-center">
-          <i class="far fa-smile"></i>
-          <p>Search your favorite recipe :)</p>
         </div>
-      </section>
+      </div>
 
-    </main>
+    </section>
 
-      <script type="module" src="./src/controller.js"></script>
+  </main>
+
+  <script type="module" src="./src/controller.js"></script>
 </body>
+
 </html>
