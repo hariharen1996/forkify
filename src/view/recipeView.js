@@ -17,6 +17,10 @@ class RecipeView{
         this._parentElement.innerHTML = ''
     }
 
+    addHandlerRender(handler){
+        ["load", "hashchange"].forEach((event) => window.addEventListener(event, handler));
+    }
+
     renderSpinner(){
         return `
         <div class="d-flex justify-content-center">
