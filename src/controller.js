@@ -12,14 +12,31 @@ const timeout = (sec) => {
 }
 
 
+const renderSpinner = (parentElement) => {
+    const dom = `
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-warning" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    `
+
+    parentElement.innerHTML = ''
+    parentElement.insertAdjacentHTML('afterbegin',dom)
+}
+
+
 const showRecipe = async () => {
     try{
+
+        renderSpinner(recipeEl)
+
         const response = await fetch('https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bc886')
         const data = await response.json()
 
         if(!response.ok) throw new Error(`${data.message} ${response.status}`)
 
-        console.log(data)
+        //console.log(data)
         let { recipe } = data.data
         recipe = {
             id: recipe.id,
