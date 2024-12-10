@@ -5,13 +5,6 @@ import "regenerator-runtime/runtime";
 import { loadRecipes, state } from "./model.js";
 import recipeView from "./view/recipeView";
 
-const timeout = (sec) => {
-  return new Promise((_, reject) => {
-    setTimeout(() => {
-      reject(`Request took too long! Timeout after ${sec} second`);
-    }, sec * 1000);
-  });
-};
 
 const showRecipe = async () => {
   try {
