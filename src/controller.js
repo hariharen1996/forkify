@@ -2,8 +2,9 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import { loadRecipes, state } from "./model.js";
+import { loadRecipes, loadSearchResults, state } from "./model.js";
 import recipeView from "./view/recipeView";
+import searchView from "./view/searchView.js";
 
 
 const showRecipe = async () => {
@@ -27,8 +28,19 @@ const showRecipe = async () => {
   }
 };
 
+const controlSearchData = async () => {
+  try{  
+      const query = searchView.getQuery()
+      await loadSearchResults(query)
+      console.log(state.search.results)
+  }catch(err){
+    console.log(err)
+  }
+}
+
 const init = () => {
-    recipeView.addHandlerRender(showRecipe())
+    recipeView.addHandlerRender(showRecipe)
+    searchView.addSearchHandler(controlSearchData)
 }
 
 init()
