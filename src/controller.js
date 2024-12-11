@@ -2,7 +2,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import { getSearchResultsPage, loadRecipes, loadSearchResults, state } from "./model.js";
+import { getSearchResultsPage, loadRecipes, loadSearchResults, state, updateServings } from "./model.js";
 import recipeView from "./view/recipeView";
 import searchView from "./view/searchView.js";
 import resultsView from "./view/resultsView.js";
@@ -22,7 +22,7 @@ const showRecipe = async () => {
 
     await loadRecipes(id);
 
-    recipeView.render(state.recipe);
+    recipeView.render(state.recipe);  
   } catch (err) {
     console.log(err);
     recipeView.renderError();
@@ -61,10 +61,17 @@ const controlPagination = (page) => {
   paginationView.render(state.search)
 }
 
+const controlServings = (newServings) => {
+  updateServings(newServings)
+
+  recipeView.render(state.recipe)
+}
+
 const init = () => {
   recipeView.addHandlerRender(showRecipe);
   searchView.addSearchHandler(controlSearchData);
   paginationView.addPaginationHandler(controlPagination)
+  recipeView.addHandlerServings(controlServings)
 };
 
 init();

@@ -24,6 +24,22 @@ class RecipeView extends View {
     );
   }
 
+  addHandlerServings(handler){
+    this._parentElement.addEventListener('click', (e) => {
+      let btn = e.target.closest('.servings-btn')
+      if(!btn) return 
+
+      console.log(btn)
+
+      let id = +btn.dataset.serving 
+      if(!id) return 
+
+      console.log(id)
+      if(id > 0) handler(id)
+
+    })
+  }
+
   renderSpinner() {
     return `
         <div class="d-flex justify-content-center">
@@ -59,12 +75,16 @@ class RecipeView extends View {
     return `<img src=${
       this._data.imageURL
     } class="recipe-img card-img-top img-fluid w-100 recipe-img" alt="image">
-        <div class="card-body">
+        <div class="card p-3">
           <h5 class="card-title recipe-title">${this._data.title}</h5>
           <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
               <div class="servings-btn-container mt-2">
-                    <i class="fas fa-plus-circle" id="recipePlus"></i>
-                    <i class="fas fa-minus-circle" id="recipeMinus"></i>
+                  <button class="servings-btn plus bg-none" data-serving="${this._data.servings + 1}">
+                    <i class="fas fa-plus-circle"></i>
+                  </button>
+                  <button class="servings-btn minus bg-none" data-serving="${this._data.servings - 1}">
+                    <i class="fas fa-minus-circle"></i>
+                  </button>
               </div>
               <div class="d-flex gap-2 mt-3">   
                 <div class="d-flex gap-2 minutes-container">
@@ -81,13 +101,13 @@ class RecipeView extends View {
                 </div>
               </div>
               <div class="recipe-bookmarks">
-                  <i class="fas fa-user" id="recipeUser"></i>
-                  <i class="far fa-bookmark" id="recipeBookmark"></i>
+                  <i class="fas fa-user m-1" id="recipeUser"></i>
+                  <i class="far fa-bookmark m-1" id="recipeBookmark"></i>
               </div>
           </div>
     
           <div class="recipe-container" id="recipeIngredients">
-             <h5 class="mt-3">Recipe Ingredients</h5>
+             <h5 class="mt-3 text-decoration-underline">Recipe Ingredients</h5>
              <div class="mt-3">
                  ${this._data.ingredients
                    .map(this._generateDOMIngredients)

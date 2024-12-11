@@ -75,6 +75,11 @@ i {
     font-size: 1rem;
 }
 
+.recipe .servings-btn-container .servings-btn{
+    background: none;
+    border: none;
+}
+
 
 @media screen and (max-width: 768px) {
     .message p {
