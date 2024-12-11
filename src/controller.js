@@ -6,6 +6,7 @@ import { getSearchResultsPage, loadRecipes, loadSearchResults, state } from "./m
 import recipeView from "./view/recipeView";
 import searchView from "./view/searchView.js";
 import resultsView from "./view/resultsView.js";
+import paginationView from "./view/paginationView.js";
 
 const showRecipe = async () => {
   try {
@@ -41,14 +42,24 @@ const controlSearchData = async () => {
 
     //resultsView.render(state.search.results);
     resultsView.render(getSearchResultsPage()) //render based on pagination
+
+    paginationView.render(state.search)
   } catch (err) {
     console.log(err);
   }
 };
 
+
+const controlPagination = (page) => {
+  resultsView.render(getSearchResultsPage(page)) //render based on pagination
+
+  paginationView.render(state.search)
+}
+
 const init = () => {
   recipeView.addHandlerRender(showRecipe);
   searchView.addSearchHandler(controlSearchData);
+  paginationView.addPaginationHandler(controlPagination)
 };
 
 init();

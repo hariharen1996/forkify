@@ -12,7 +12,7 @@ class ResultsView extends View {
 
   _generateDOMPreview(data) {
     return `<li class="mb-3 list-group-item d-flex align-items-center">
-              <a href="#${data.id}" class="d-flex w-100 align-items-center">
+              <a href="#${data.id}" class="d-flex w-100 align-items-center text-decoration-none">
                 <!-- Image Section on the Left -->
                 <div class="image-container me-3">
                   <img src="${data.imageURL}" class="rounded-circle" alt="${data.title}">
@@ -20,8 +20,8 @@ class ResultsView extends View {
 
                 <!-- Text Section on the Right -->
                 <div class="d-flex flex-column">
-                  <h5 class="mb-1">${data.title}</h5>
-                  <p class="mb-0">${data.publisher}</p>
+                  <h5 class="mb-1 text-black">${data.title}</h5>
+                  <p class="mb-0 text-black">${data.publisher}</p>
                 </div>
               </a>
             </li>`;
