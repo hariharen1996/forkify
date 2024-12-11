@@ -5,6 +5,19 @@ class ResultsView extends View {
   _errorMessage = "No recipes found for your query! Please try again :)";
   _message = "";
 
+  addHandlerActive(){
+     this._parentElement.addEventListener('click', (e) => {
+         let liEl = e.target.closest('li')
+         if(!liEl) return 
+         console.log(liEl)
+  
+         let listItemGroup = document.querySelectorAll('.list-group-item')
+         listItemGroup.forEach(item => item.classList.remove('active'))
+
+         liEl.classList.add('active')
+     })
+  }
+
   _generateDOM() {
     //console.log(this._data)
     return this._data.map(this._generateDOMPreview).join("");

@@ -57,6 +57,11 @@ i {
     height: 100%;
 }
 
+.list-group-item.active{
+    background-color: #f1f1f1;
+    color: white;
+}
+
 
 .recipe-img {
     height: 20rem;

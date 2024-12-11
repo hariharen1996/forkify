@@ -43,7 +43,12 @@ const controlSearchData = async () => {
     //resultsView.render(state.search.results);
     resultsView.render(getSearchResultsPage()) //render based on pagination
 
+    resultsView.addHandlerActive()
+
     paginationView.render(state.search)
+
+   
+
   } catch (err) {
     console.log(err);
   }
