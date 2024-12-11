@@ -1,8 +1,10 @@
-
 class View {
   _data;
 
   render(data) {
+    if (!data || (Array.isArray(data) && data.length === 0))
+      return this.renderError();
+
     this._data = data;
     let dom = this._generateDOM();
     this._clear();
@@ -43,7 +45,6 @@ class View {
     this._clear();
     this._parentElement.insertAdjacentHTML("afterbegin", dom);
   }
-
 }
 
 export default View;
