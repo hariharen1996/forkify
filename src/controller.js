@@ -2,7 +2,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import { loadRecipes, loadSearchResults, state } from "./model.js";
+import { getSearchResultsPage, loadRecipes, loadSearchResults, state } from "./model.js";
 import recipeView from "./view/recipeView";
 import searchView from "./view/searchView.js";
 import resultsView from "./view/resultsView.js";
@@ -39,7 +39,8 @@ const controlSearchData = async () => {
     await loadSearchResults(query);
     //console.log(state.search.results)
 
-    resultsView.render(state.search.results);
+    //resultsView.render(state.search.results);
+    resultsView.render(getSearchResultsPage()) //render based on pagination
   } catch (err) {
     console.log(err);
   }
