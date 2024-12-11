@@ -23,6 +23,7 @@ const showRecipe = async () => {
     recipeView.render(state.recipe);
   } catch (err) {
     console.log(err);
+    recipeView.renderError()
   }
 };
 
