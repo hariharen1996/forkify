@@ -76,7 +76,8 @@ i {
 }
 
 .recipe .servings-btn-container .servings-btn,
-.recipe .recipe-bookmarks .bookmark-btn {
+.recipe .recipe-bookmarks .bookmark-btn,
+.navbar .nav-item .nav-link .nav-btn {
     background: none;
     border: none;
 }

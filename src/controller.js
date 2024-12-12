@@ -2,12 +2,13 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import { addBookmark, deleteBookmark, getSearchResultsPage, loadRecipes, loadSearchResults, state, updateServings } from "./model.js";
+import { addBookmark, deleteBookmark, getSearchResultsPage, loadRecipes, loadSearchResults, state, updateServings, uploadRecipes } from "./model.js";
 import recipeView from "./view/recipeView";
 import searchView from "./view/searchView.js";
 import resultsView from "./view/resultsView.js";
 import paginationView from "./view/paginationView.js";
 import bookmarkView from "./view/bookmarkView.js";
+import addRecipeView from "./view/addRecipeView.js";
 
 const showRecipe = async () => {
   try {
@@ -87,9 +88,28 @@ const controlAddBookmark = () => {
 
 }
 
-
 const controlBookmarks = () => {
   bookmarkView.render(state.bookmarks)
+}
+
+
+const controlAddRecipe = async (newRecipe) => {
+  try{
+
+    addRecipeView.renderSpinner()
+
+   await uploadRecipes(newRecipe)
+   console.log(state.recipe)
+   recipeView.render(state.recipe)
+
+   addRecipeView.renderMessage()
+
+   bookmarkView.render(state.bookmarks)
+
+  }catch(err){
+    console.error(err)
+    addRecipeView.renderError(err.message)
+  }
 }
 
 
@@ -100,6 +120,7 @@ const init = () => {
   recipeView.addHandlerServings(controlServings)
   recipeView.addHandlerBookmark(controlAddBookmark)
   bookmarkView.addHandlerRender(controlBookmarks)
+  addRecipeView.addHandlerUpload(controlAddRecipe)
 };
 
 init();
