@@ -1,5 +1,5 @@
 import { API_URL, KEY, RES_PER_PAGE } from "./config";
-import { getJSON, sendJSON } from "./helpers";
+import { AJAX } from "./helpers";
 
 export const state = {
   recipe: {},
@@ -30,7 +30,7 @@ const createRecipeObject = (data) => {
 
 export const loadRecipes = async (id) => {
   try {
-    const data = await getJSON(`${API_URL}/${id}`);
+    const data = await AJAX(`${API_URL}/${id}`);
     //console.log(data)
     
     state.recipe = createRecipeObject(data)
@@ -54,7 +54,7 @@ export const loadRecipes = async (id) => {
 export const loadSearchResults = async (query) => {
   try {
     state.search.query = query;
-    const data = await getJSON(`${API_URL}?search=${query}`);
+    const data = await AJAX(`${API_URL}?search=${query}`);
     //console.log(data)
 
     state.search.results = data.data.recipes.map((items) => {
@@ -157,7 +157,7 @@ export const uploadRecipes = async (newRecipes) => {
       }
   
       console.log(recipe)
-      const data = await sendJSON(`${API_URL}?key=${KEY}`,recipe)
+      const data = await AJAX(`${API_URL}?key=${KEY}`,recipe)
       console.log(data)
       state.recipe = createRecipeObject(data)
       

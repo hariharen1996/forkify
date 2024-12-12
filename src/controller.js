@@ -106,6 +106,9 @@ const controlAddRecipe = async (newRecipe) => {
 
    bookmarkView.render(state.bookmarks)
 
+   window.history.pushState(null,`${state.recipe.id}`)
+   window.history.back()
+
   }catch(err){
     console.error(err)
     addRecipeView.renderError(err.message)
