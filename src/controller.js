@@ -24,6 +24,7 @@ const showRecipe = async () => {
     await loadRecipes(id);
 
     recipeView.render(state.recipe);  
+    bookmarkView.render(state.bookmarks)
   } catch (err) {
     console.log(err);
     recipeView.renderError();
@@ -87,12 +88,18 @@ const controlAddBookmark = () => {
 }
 
 
+const controlBookmarks = () => {
+  bookmarkView.render(state.bookmarks)
+}
+
+
 const init = () => {
   recipeView.addHandlerRender(showRecipe);
   searchView.addSearchHandler(controlSearchData);
   paginationView.addPaginationHandler(controlPagination)
   recipeView.addHandlerServings(controlServings)
   recipeView.addHandlerBookmark(controlAddBookmark)
+  bookmarkView.addHandlerRender(controlBookmarks)
 };
 
 init();

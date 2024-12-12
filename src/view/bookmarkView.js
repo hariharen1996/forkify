@@ -7,8 +7,11 @@ class BookmarksView extends View {
 
   _generateDOM() {
     //console.log(this._data)
-
     return this._data.map(this._generateDOMPreview).join("");
+  }
+
+  addHandlerRender(hander){
+    window.addEventListener('load',hander)
   }
 
   _generateDOMPreview(data) {
@@ -26,7 +29,7 @@ class BookmarksView extends View {
                 </div>
               </a>
             </li>
-           `;
+            <hr/ >`;
   }
 }
 
