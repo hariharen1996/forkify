@@ -113,7 +113,10 @@ class RecipeView extends View {
                 </div>
               </div>
               <div class="recipe-bookmarks">
-                  <i class="fas fa-user m-1" id="recipeUser"></i>
+                <button class="user-btn  ${this._data.key ? '' : 'd-none'}">  
+                    <i class="fas fa-user m-1"></i>
+                </button>  
+                  
                 <button class="bookmark-btn">  
                   <i class="${this._data.bookmarked ? "fas fa-bookmark" : "far fa-bookmark"} m-1"></i>
                 </button>  

@@ -24,8 +24,8 @@ class BookmarksView extends View {
 
                 <!-- Text Section on the Right -->
                 <div class="d-flex flex-column">
-                  <h5 class="mb-1 text-black">${data.title}</h5>
-                  <p class="mb-0 text-black">${data.publisher}</p>
+                 <h5 class="mb-1 text-black">${data.title} <span class="user ${data.key ? "" : "d-none"}"><i class="fas fa-user m-1"></i></span></h5>
+                 <p class="mb-0 text-black">${data.publisher}</p>
                 </div>
               </a>
             </li>
