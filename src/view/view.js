@@ -11,7 +11,6 @@ class View {
     this._parentElement.insertAdjacentHTML("afterbegin", dom);
   }
 
-
   _clear() {
     this._parentElement.innerHTML = "";
   }
@@ -28,7 +27,7 @@ class View {
 
   renderError(message = this._errorMessage) {
     let dom = `
-        <div class="message mt-2 mb-5 alert alert-warning d-flex flex-column justify-content-center align-items-center" role="alert">
+        <div class="message mt-2 m-2 mb-5 alert alert-warning d-flex flex-column justify-content-center align-items-center" role="alert">
           <i class="mb-2 fas fa-exclamation-triangle"></i>
           <p class="alert-link">${message}</p>
         </div>`;

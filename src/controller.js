@@ -2,7 +2,16 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import { addBookmark, deleteBookmark, getSearchResultsPage, loadRecipes, loadSearchResults, state, updateServings, uploadRecipes } from "./model.js";
+import {
+  addBookmark,
+  deleteBookmark,
+  getSearchResultsPage,
+  loadRecipes,
+  loadSearchResults,
+  state,
+  updateServings,
+  uploadRecipes,
+} from "./model.js";
 import recipeView from "./view/recipeView";
 import searchView from "./view/searchView.js";
 import resultsView from "./view/resultsView.js";
@@ -24,8 +33,8 @@ const showRecipe = async () => {
 
     await loadRecipes(id);
 
-    recipeView.render(state.recipe);  
-    bookmarkView.render(state.bookmarks)
+    recipeView.render(state.recipe);
+    bookmarkView.render(state.bookmarks);
   } catch (err) {
     console.log(err);
     recipeView.renderError();
@@ -45,85 +54,90 @@ const controlSearchData = async () => {
 
     //resultsView.render(state.search.results);
     //render based on pagination
-    resultsView.render(getSearchResultsPage()) 
 
-    resultsView.addHandlerActive()
+    const msgEl = document.querySelector(".reciper-search-container .message");
+    console.log(msgEl);
 
-    paginationView.render(state.search)
+    if (msgEl) {
+      console.log(state.search.results.length);
+      if (state.search.results.length === 0) {
+        msgEl.classList.add("d-block");
+      } else {
+        msgEl.classList.add("d-none");
+      }
+    }
 
-   
+    resultsView.render(getSearchResultsPage());
 
+    resultsView.addHandlerActive();
+
+    paginationView.render(state.search);
   } catch (err) {
     console.log(err);
   }
 };
 
-
 const controlPagination = (page) => {
-   //render based on pagination
-  resultsView.render(getSearchResultsPage(page))
+  //render based on pagination
+  resultsView.render(getSearchResultsPage(page));
 
-  paginationView.render(state.search)
-}
+  paginationView.render(state.search);
+};
 
 const controlServings = (newServings) => {
-  updateServings(newServings)
+  updateServings(newServings);
 
-   //recipeView.render(state.recipe)
+  //recipeView.render(state.recipe)
   // update only part of servings and whole dom should not re-render
-  recipeView.render(state.recipe) 
-}
+  recipeView.render(state.recipe);
+};
 
 const controlAddBookmark = () => {
-  if (!state.recipe.bookmarked){
-    addBookmark(state.recipe)
-  }else{
-    deleteBookmark(state.recipe.id)
+  if (!state.recipe.bookmarked) {
+    addBookmark(state.recipe);
+  } else {
+    deleteBookmark(state.recipe.id);
   }
 
-  recipeView.render(state.recipe)
-  console.log(state.recipe)
+  recipeView.render(state.recipe);
+  //console.log(state.recipe)
 
-  bookmarkView.render(state.bookmarks)
-
-}
+  bookmarkView.render(state.bookmarks);
+};
 
 const controlBookmarks = () => {
-  bookmarkView.render(state.bookmarks)
-}
-
+  bookmarkView.render(state.bookmarks);
+};
 
 const controlAddRecipe = async (newRecipe) => {
-  try{
+  try {
+    addRecipeView.renderSpinner();
 
-    addRecipeView.renderSpinner()
+    await uploadRecipes(newRecipe);
+    //console.log(state.recipe)
 
-   await uploadRecipes(newRecipe)
-   console.log(state.recipe)
-   recipeView.render(state.recipe)
+    recipeView.render(state.recipe);
 
-   addRecipeView.renderMessage()
+    addRecipeView.renderMessage();
 
-   bookmarkView.render(state.bookmarks)
+    bookmarkView.render(state.bookmarks);
 
-   window.history.pushState(null,`${state.recipe.id}`)
-   window.history.back()
-
-  }catch(err){
-    console.error(err)
-    addRecipeView.renderError(err.message)
+    window.history.pushState(null, `${state.recipe.id}`);
+    window.history.back();
+  } catch (err) {
+    console.error(err);
+    addRecipeView.renderError(err.message);
   }
-}
-
+};
 
 const init = () => {
   recipeView.addHandlerRender(showRecipe);
   searchView.addSearchHandler(controlSearchData);
-  paginationView.addPaginationHandler(controlPagination)
-  recipeView.addHandlerServings(controlServings)
-  recipeView.addHandlerBookmark(controlAddBookmark)
-  bookmarkView.addHandlerRender(controlBookmarks)
-  addRecipeView.addHandlerUpload(controlAddRecipe)
+  paginationView.addPaginationHandler(controlPagination);
+  recipeView.addHandlerServings(controlServings);
+  recipeView.addHandlerBookmark(controlAddBookmark);
+  bookmarkView.addHandlerRender(controlBookmarks);
+  addRecipeView.addHandlerUpload(controlAddRecipe);
 };
 
 init();

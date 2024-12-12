@@ -27,29 +27,28 @@ class RecipeView extends View {
     );
   }
 
-  addHandlerServings(handler){
-    this._parentElement.addEventListener('click', (e) => {
-      let btn = e.target.closest('.servings-btn')
-      if(!btn) return 
+  addHandlerServings(handler) {
+    this._parentElement.addEventListener("click", (e) => {
+      let btn = e.target.closest(".servings-btn");
+      if (!btn) return;
 
-      console.log(btn)
+      //console.log(btn)
 
-      let id = +btn.dataset.serving 
-      if(!id) return 
+      let id = +btn.dataset.serving;
+      if (!id) return;
 
-      console.log(id)
-      if(id > 0) handler(id)
-
-    })
+      //console.log(id)
+      if (id > 0) handler(id);
+    });
   }
 
-  addHandlerBookmark(handler){
-    this._parentElement.addEventListener('click', (e) => {
-      const btn = e.target.closest('.bookmark-btn')
-      if(!btn) return 
+  addHandlerBookmark(handler) {
+    this._parentElement.addEventListener("click", (e) => {
+      const btn = e.target.closest(".bookmark-btn");
+      if (!btn) return;
 
-      handler()
-    })
+      handler();
+    });
   }
 
   renderSpinner() {
@@ -89,12 +88,16 @@ class RecipeView extends View {
     } class="recipe-img card-img-top img-fluid w-100 recipe-img" alt="image">
         <div class="card p-3">
           <h5 class="card-title recipe-title">${this._data.title}</h5>
-          <div class="d-flex flex-column justify-content-between align-items-center flex-md-row justify-content-md-between align-items-md-center">
+          <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center">
               <div class="servings-btn-container mt-2">
-                  <button class="servings-btn plus bg-none" data-serving="${this._data.servings + 1}">
+                  <button class="servings-btn plus bg-none" data-serving="${
+                    this._data.servings + 1
+                  }">
                     <i class="fas fa-plus-circle"></i>
                   </button>
-                  <button class="servings-btn minus bg-none" data-serving="${this._data.servings - 1}">
+                  <button class="servings-btn minus bg-none" data-serving="${
+                    this._data.servings - 1
+                  }">
                     <i class="fas fa-minus-circle"></i>
                   </button>
               </div>
@@ -112,18 +115,22 @@ class RecipeView extends View {
                   }</span> Servings</p>
                 </div>
               </div>
-              <div class="recipe-bookmarks">
-                <button class="user-btn  ${this._data.key ? '' : 'd-none'}">  
+              <div class="d-flex gap-2">
+                <button class="user-btn  ${this._data.key ? "" : "d-none"}">  
                     <i class="fas fa-user m-1"></i>
                 </button>  
                   
                 <button class="bookmark-btn">  
-                  <i class="${this._data.bookmarked ? "fas fa-bookmark" : "far fa-bookmark"} m-1"></i>
+                  <i class="${
+                    this._data.bookmarked
+                      ? "fas fa-bookmark"
+                      : "far fa-bookmark"
+                  } m-1"></i>
                 </button>  
               </div>
           </div>
     
-          <div class="recipe-container" id="recipeIngredients">
+          <div class="recipe-container">
              <h5 class="mt-3 text-decoration-underline">Recipe Ingredients</h5>
              <div class="mt-3">
                  ${this._data.ingredients
@@ -135,7 +142,7 @@ class RecipeView extends View {
   }
 
   _generateDOMIngredients(item) {
-    return `<div>
+    return `<div class="card mb-2 p-3 bg-light">
                     <p>Quanity: ${
                       item.quantity
                         ? new Fraction(item.quantity).toString()

@@ -1,5 +1,8 @@
 import { API_URL, KEY, RES_PER_PAGE } from "./config";
 import { AJAX } from "./helpers";
+import addRecipeView from "./view/addRecipeView";
+import bookmarkView from "./view/bookmarkView";
+import recipeView from "./view/recipeView";
 
 export const state = {
   recipe: {},
@@ -12,28 +15,27 @@ export const state = {
   bookmarks: [],
 };
 
-
 const createRecipeObject = (data) => {
-  const { recipe } = data.data
+  const { recipe } = data.data;
   return {
-      id: recipe.id,
-      imageURL: recipe.image_url,
-      cookingTime: recipe.cooking_time,
-      sourceURL: recipe.source_url,
-      servings: recipe.servings,
-      title: recipe.title,
-      publisher: recipe.publisher,
-      ingredients: recipe.ingredients,
-      ...(recipe.key && { key: recipe.key })
-  }
-}
+    id: recipe.id,
+    imageURL: recipe.image_url,
+    cookingTime: recipe.cooking_time,
+    sourceURL: recipe.source_url,
+    servings: recipe.servings,
+    title: recipe.title,
+    publisher: recipe.publisher,
+    ingredients: recipe.ingredients,
+    ...(recipe.key && { key: recipe.key }),
+  };
+};
 
 export const loadRecipes = async (id) => {
   try {
     const data = await AJAX(`${API_URL}/${id}?key=${KEY}`);
     //console.log(data)
-    
-    state.recipe = createRecipeObject(data)
+
+    state.recipe = createRecipeObject(data);
 
     //console.log(recipe)
 
@@ -57,15 +59,23 @@ export const loadSearchResults = async (query) => {
     const data = await AJAX(`${API_URL}?search=${query}&key=${KEY}`);
     //console.log(data)
 
-    state.search.results = data.data.recipes.map((items) => {
-      return {
-        id: items.id,
-        title: items.title,
-        publisher: items.publisher,
-        imageURL: items.image_url,
-        ...(items.key && { key: items.key })
-      };
-    });
+    state.search.results = data.data.recipes
+      .filter(
+        (item, index, self) => index === self.findIndex((t) => t.id === item.id)
+      )
+      .map((items) => {
+        const isBookmarked = state.bookmarks.some(
+          (bookmark) => bookmark.id === items.id
+        );
+        return {
+          id: items.id,
+          title: items.title,
+          publisher: items.publisher,
+          imageURL: items.image_url,
+          bookmarked: isBookmarked,
+          ...(items.key && { key: items.key }),
+        };
+      });
 
     //console.log(state.search.results)
   } catch (err) {
@@ -84,8 +94,8 @@ export const getSearchResultsPage = (page = state.search.page) => {
 export const updateServings = (newServings) => {
   //newquantity = oldQty * newServings / oldServings
 
-  console.log(newServings);
-  console.log(state.recipe);
+  //console.log(newServings);
+  //console.log(state.recipe);
 
   state.recipe.ingredients.forEach((item) => {
     item.quantity = (item.quantity * newServings) / state.recipe.servings;
@@ -99,9 +109,8 @@ export const persistBookmarks = () => {
 };
 
 export const addBookmark = (recipe) => {
-
-  if(!state.bookmarks.some(item => item.id === recipe.id)){
-    state.bookmarks.push(recipe);    
+  if (!state.bookmarks.some((item) => item.id === recipe.id)) {
+    state.bookmarks.push(recipe);
   }
 
   if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
@@ -147,27 +156,33 @@ export const uploadRecipes = async (newRecipes) => {
         return { quantity: quantity ? +quantity : null, unit, description };
       });
 
-      const recipe = {
-        title: newRecipes.title,
-        source_url: newRecipes.sourceURL,
-        image_url: newRecipes.imageURL,
-        publisher: newRecipes.publisher,
-        cooking_time: newRecipes.cookingTime,
-        servings: newRecipes.servings,
-        ingredients,
-      }
-  
-      console.log(recipe)
-      const data = await AJAX(`${API_URL}?key=${KEY}`,recipe)
-      console.log(data)
-      state.recipe = createRecipeObject(data)
-      
-      if(!state.bookmarks.some(item => item.id === recipe.id)){
-        addBookmark(state.recipe)  
-      }
-    
-      
+    const recipe = {
+      title: newRecipes.title,
+      source_url: newRecipes.sourceURL,
+      image_url: newRecipes.imageURL,
+      publisher: newRecipes.publisher,
+      cooking_time: newRecipes.cookingTime,
+      servings: newRecipes.servings,
+      ingredients,
+    };
+
+    console.log(recipe);
+    const data = await AJAX(`${API_URL}?key=${KEY}`, recipe, "POST");
+    console.log(data);
+    state.recipe = createRecipeObject(data);
+
+    if (!state.bookmarks.some((item) => item.id === recipe.id)) {
+      addBookmark(state.recipe);
+    }
+
+    recipeView.render(state.recipe);
+    addRecipeView.renderMessage();
+    bookmarkView.render(state.bookmarks);
+
+    window.history.pushState(null, `${state.recipe.id}`);
+    window.history.back();
   } catch (err) {
+    addRecipeView.renderError(err.message);
     throw err;
   }
 };

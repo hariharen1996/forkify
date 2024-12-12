@@ -10,21 +10,27 @@ class BookmarksView extends View {
     return this._data.map(this._generateDOMPreview).join("");
   }
 
-  addHandlerRender(hander){
-    window.addEventListener('load',hander)
+  addHandlerRender(hander) {
+    window.addEventListener("load", hander);
   }
 
   _generateDOMPreview(data) {
     return `<li class="mb-3 list-group-item d-flex align-items-center">
-              <a href="#${data.id}" class="d-flex w-100 align-items-center text-decoration-none">
+              <a href="#${
+                data.id
+              }" class="d-flex w-100 align-items-center text-decoration-none">
                 <!-- Image Section on the Left -->
                 <div class="image-container">
-                  <img src="${data.imageURL}" class="rounded-circle" alt="${data.title}">
+                  <img src="${data.imageURL}" class="rounded-circle" alt="${
+      data.title
+    }">
                 </div>
 
                 <!-- Text Section on the Right -->
                 <div class="d-flex flex-column">
-                 <h5 class="mb-1 text-black">${data.title} <span class="user ${data.key ? "" : "d-none"}"><i class="fas fa-user m-1"></i></span></h5>
+                 <h5 class="mb-1 text-black">${data.title} <span class="user ${
+      data.key ? "" : "d-none"
+    }"><i class="fas fa-user m-1"></i></span></h5>
                  <p class="mb-0 text-black">${data.publisher}</p>
                 </div>
               </a>
