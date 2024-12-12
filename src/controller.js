@@ -7,6 +7,7 @@ import recipeView from "./view/recipeView";
 import searchView from "./view/searchView.js";
 import resultsView from "./view/resultsView.js";
 import paginationView from "./view/paginationView.js";
+import bookmarkView from "./view/bookmarkView.js";
 
 const showRecipe = async () => {
   try {
@@ -80,6 +81,9 @@ const controlAddBookmark = () => {
 
   recipeView.render(state.recipe)
   console.log(state.recipe)
+
+  bookmarkView.render(state.bookmarks)
+
 }
 
 

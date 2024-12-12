@@ -89,7 +89,7 @@ class RecipeView extends View {
     } class="recipe-img card-img-top img-fluid w-100 recipe-img" alt="image">
         <div class="card p-3">
           <h5 class="card-title recipe-title">${this._data.title}</h5>
-          <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
+          <div class="d-flex flex-column justify-content-between align-items-center flex-md-row justify-content-md-between align-items-md-center">
               <div class="servings-btn-container mt-2">
                   <button class="servings-btn plus bg-none" data-serving="${this._data.servings + 1}">
                     <i class="fas fa-plus-circle"></i>
