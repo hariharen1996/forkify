@@ -75,7 +75,8 @@ i {
     font-size: 1rem;
 }
 
-.recipe .servings-btn-container .servings-btn{
+.recipe .servings-btn-container .servings-btn,
+.recipe .recipe-bookmarks .bookmark-btn{
     background: none;
     border: none;
 }

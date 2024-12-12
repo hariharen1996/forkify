@@ -2,7 +2,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import { getSearchResultsPage, loadRecipes, loadSearchResults, state, updateServings } from "./model.js";
+import { addBookmark, deleteBookmark, getSearchResultsPage, loadRecipes, loadSearchResults, state, updateServings } from "./model.js";
 import recipeView from "./view/recipeView";
 import searchView from "./view/searchView.js";
 import resultsView from "./view/resultsView.js";
@@ -41,7 +41,8 @@ const controlSearchData = async () => {
     //console.log(state.search.results)
 
     //resultsView.render(state.search.results);
-    resultsView.render(getSearchResultsPage()) //render based on pagination
+    //render based on pagination
+    resultsView.render(getSearchResultsPage()) 
 
     resultsView.addHandlerActive()
 
@@ -56,7 +57,8 @@ const controlSearchData = async () => {
 
 
 const controlPagination = (page) => {
-  resultsView.render(getSearchResultsPage(page)) //render based on pagination
+   //render based on pagination
+  resultsView.render(getSearchResultsPage(page))
 
   paginationView.render(state.search)
 }
@@ -64,14 +66,29 @@ const controlPagination = (page) => {
 const controlServings = (newServings) => {
   updateServings(newServings)
 
-  recipeView.render(state.recipe)
+   //recipeView.render(state.recipe)
+  // update only part of servings and whole dom should not re-render
+  recipeView.render(state.recipe) 
 }
+
+const controlAddBookmark = () => {
+  if (!state.recipe.bookmarked){
+    addBookmark(state.recipe)
+  }else{
+    deleteBookmark(state.recipe.id)
+  }
+
+  recipeView.render(state.recipe)
+  console.log(state.recipe)
+}
+
 
 const init = () => {
   recipeView.addHandlerRender(showRecipe);
   searchView.addSearchHandler(controlSearchData);
   paginationView.addPaginationHandler(controlPagination)
   recipeView.addHandlerServings(controlServings)
+  recipeView.addHandlerBookmark(controlAddBookmark)
 };
 
 init();

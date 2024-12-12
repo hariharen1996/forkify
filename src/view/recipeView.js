@@ -8,6 +8,9 @@ class RecipeView extends View {
   _data;
 
   render(data) {
+    if (!data || (Array.isArray(data) && data.length === 0))
+      return this.renderError();
+
     this._data = data;
     let dom = this._generateDOM();
     this._clear();
@@ -37,6 +40,15 @@ class RecipeView extends View {
       console.log(id)
       if(id > 0) handler(id)
 
+    })
+  }
+
+  addHandlerBookmark(handler){
+    this._parentElement.addEventListener('click', (e) => {
+      const btn = e.target.closest('.bookmark-btn')
+      if(!btn) return 
+
+      handler()
     })
   }
 
@@ -102,7 +114,9 @@ class RecipeView extends View {
               </div>
               <div class="recipe-bookmarks">
                   <i class="fas fa-user m-1" id="recipeUser"></i>
-                  <i class="far fa-bookmark m-1" id="recipeBookmark"></i>
+                <button class="bookmark-btn">  
+                  <i class="${this._data.bookmarked ? "fas fa-bookmark" : "far fa-bookmark"} m-1"></i>
+                </button>  
               </div>
           </div>
     

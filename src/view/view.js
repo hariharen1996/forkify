@@ -11,6 +11,7 @@ class View {
     this._parentElement.insertAdjacentHTML("afterbegin", dom);
   }
 
+
   _clear() {
     this._parentElement.innerHTML = "";
   }
