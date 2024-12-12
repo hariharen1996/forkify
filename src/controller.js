@@ -56,10 +56,10 @@ const controlSearchData = async () => {
     //render based on pagination
 
     const msgEl = document.querySelector(".reciper-search-container .message");
-    console.log(msgEl);
+    //console.log(msgEl);
 
     if (msgEl) {
-      console.log(state.search.results.length);
+      //console.log(state.search.results.length);
       if (state.search.results.length === 0) {
         msgEl.classList.add("d-block");
       } else {

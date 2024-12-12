@@ -105,7 +105,7 @@ export const updateServings = (newServings) => {
 };
 
 export const persistBookmarks = () => {
-  localStorage.setItem("bookmarks", JSON.stringify(state.bookmarks));
+  sessionStorage.setItem("bookmarks", JSON.stringify(state.bookmarks));
 };
 
 export const addBookmark = (recipe) => {
@@ -128,11 +128,11 @@ export const deleteBookmark = (id) => {
 };
 
 const clearBookmarks = () => {
-  localStorage.clear();
+  sessionStorage.clear();
 };
 
 const init = () => {
-  const storage = JSON.parse(localStorage.getItem("bookmarks"));
+  const storage = JSON.parse(sessionStorage.getItem("bookmarks"));
   if (storage) {
     state.bookmarks = storage;
   }
@@ -141,12 +141,12 @@ const init = () => {
 init();
 
 export const uploadRecipes = async (newRecipes) => {
-  console.log(Object.entries(newRecipes));
+  //console.log(Object.entries(newRecipes));
   try {
     const ingredients = Object.entries(newRecipes)
       .filter((rec) => rec[0].startsWith("ingredient") && rec[1] !== "")
       .map((ing) => {
-        console.log(ing);
+        //console.log(ing);
         const ingArray = ing[1].replaceAll(" ", "").split(",");
         if (ingArray.length !== 3)
           throw new Error(
@@ -166,9 +166,9 @@ export const uploadRecipes = async (newRecipes) => {
       ingredients,
     };
 
-    console.log(recipe);
+    //console.log(recipe);
     const data = await AJAX(`${API_URL}?key=${KEY}`, recipe, "POST");
-    console.log(data);
+    //console.log(data);
     state.recipe = createRecipeObject(data);
 
     if (!state.bookmarks.some((item) => item.id === recipe.id)) {
